@@ -8,8 +8,8 @@ class Dishdetail extends Component{
   
     }
     renderComments(){
-        if(this.props.selectedDish){
-            const comments = this.props.selectedDish.comments.map((cmts)=>{
+        if(this.props.dish){
+            const comments = this.props.dish.comments.map((cmts)=>{
                 return(
                     <div>
                         {}
@@ -20,7 +20,7 @@ class Dishdetail extends Component{
                         <br></br>
                         <div className="col-12">
                             --&nbsp;
-                            {cmts.author}&nbsp;{cmts.date}
+                            {cmts.author}&nbsp;{new Intl.DateTimeFormat('en-US',{year:'numeric',month: 'short',day:'2-digit'}).format(new Date(Date.parse(cmts.date)))}
                         </div>
                     </div>
                   
@@ -37,16 +37,17 @@ class Dishdetail extends Component{
 
     }
     render(){
-        if(this.props.selectedDish){
+        if(this.props.dish){
             
             return(
-                <div key={this.props.selectedDish.id}className="row">
-                    <div className="col-md-5 m-1 col-12">
+                <div key={this.props.dish.id}className="row">
+                    
+                    <div className=" col-md-5 m-1 col-12">
                         <Card>
-                            <CardImg object src={this.props.selectedDish.image} alt={this.props.selectedDish.name} />
+                            <CardImg object width="100%"src={this.props.dish.image} alt={this.props.dish.name} />
                             <CardBody>
-                                <CardTitle>{this.props.selectedDish.name}</CardTitle>
-                                <CardText>{this.props.selectedDish.description}</CardText>
+                                <CardTitle>{this.props.dish.name}</CardTitle>
+                                <CardText>{this.props.dish.description}</CardText>
                             </CardBody>
                         </Card>
                     </div>
@@ -58,6 +59,7 @@ class Dishdetail extends Component{
                             </ul>
                         </div>
                     </div>
+                    
                 </div>
             );
         }
