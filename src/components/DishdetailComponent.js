@@ -63,10 +63,12 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle  } from 'r
         if(props.dish)
         {
             return(
-            <div key={props.dish.id}className="row">
-                <RenderDish dish={props.dish}/>
-                <RenderComments dish={props.dish}/>
-            </div>
+            <div className="container">
+                <div key={props.dish.id}className="row">
+                    <RenderDish dish={props.dish}/>
+                    <RenderComments dish={props.dish}/>
+                </div>
+            </div>    
             );
         }
         else{
