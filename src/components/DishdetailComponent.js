@@ -1,6 +1,6 @@
 import React from "react";
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle  } from 'reactstrap';
-
+import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, BreadcrumbItem, Breadcrumb  } from 'reactstrap';
+import {Link } from "react-router-dom";
 
 
     function RenderDish({dish}){
@@ -24,9 +24,9 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle  } from 'r
        } 
     }
     
-    function RenderComments({dish}){
-        if(dish){
-            const comments = dish.comments.map((cmts)=>{
+    function RenderComments({comments}){
+        if(comments){
+            const com = comments.map((cmts)=>{
                 return(
                     <li>
                         {}
@@ -48,7 +48,7 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle  } from 'r
                 <div className="co-12 col-md-5 m-1">
                     <div><h4>Comments</h4></div>
                     <ul className="text-left list-unstyled">
-                        {comments}
+                        {com}
                     </ul> 
                 </div>);
         }
@@ -59,14 +59,27 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle  } from 'r
         }
 
     }
-    const Dishdetail=(props)=>{
+    const DishDetail=(props)=>{
         if(props.dish)
         {
             return(
             <div className="container">
+                <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>
+                        {props.dish.name}
+                        </BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{props.dish.name}</h3>
+                        <hr />
+                    </div>
+                </div>
                 <div key={props.dish.id}className="row">
                     <RenderDish dish={props.dish}/>
-                    <RenderComments dish={props.dish}/>
+                    <RenderComments comments={props.comments}/>
                 </div>
             </div>    
             );
@@ -81,4 +94,4 @@ import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle  } from 'r
 
                  
 
-export default Dishdetail;
+export default DishDetail;
