@@ -22,15 +22,15 @@ class CommnetForm extends Component{
         });
     }
     handleSubmit(values){
-        console.log('Current State is: ' + JSON.stringify(values));
-        alert('Current State is: ' + JSON.stringify(values));
+        this.toggleModal();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
     }
     render(){
         return(
             <>
             <div >
                 <Button onClick={this.toggleModal}className="bg-white border border-secondary text-secondary">
-                    <span className="fa fa-pencil"></span> Submit Comment
+                    <span className="fa fa-pencil fa-lg"></span> Submit Comment
                 </Button>
             </div>
             <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
@@ -117,7 +117,7 @@ class CommnetForm extends Component{
        } 
     }
     
-    function RenderComments({comments}){
+    function RenderComments({comments, addComment, dishId}){
         if(comments){
             const com = comments.map((cmts)=>{
                 return(
@@ -143,7 +143,7 @@ class CommnetForm extends Component{
                     <ul className="text-left list-unstyled">
                         {com}
                     </ul> 
-                    <CommnetForm />
+                    <CommnetForm dishId={dishId} addComment={addComment} />
                 </div>);
         }
         else{
@@ -173,7 +173,9 @@ class CommnetForm extends Component{
                 </div>
                 <div key={props.dish.id}className="row">
                     <RenderDish dish={props.dish}/>
-                    <RenderComments comments={props.comments}/>
+                    <RenderComments comments={props.comments}
+                     addComment={props.addComment}
+                     dishId={props.dish.id}/>
                 </div>
             </div>    
             );
